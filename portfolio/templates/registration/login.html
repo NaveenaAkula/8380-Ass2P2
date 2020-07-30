@@ -1,0 +1,64 @@
+
+{% extends "portfolio/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+
+    .card-header {
+        background-color: #337ab7 !important;
+        height: 4rem;
+        text-align: center;
+        font-style: initial;
+        font-size: 24px;
+
+        }
+    /*label{*/
+    /*    width: 1rem !important;*/
+    /*}*/
+
+
+    #div_id_username, #div_id_password{
+        display: block;
+        margin: 2.5rem;
+    }
+    .card-body{
+        display: inline-block;
+        justify-content: center;
+
+
+    }
+    .card{
+        display: inline;
+        align-items: center;
+    }
+
+
+
+</style>
+
+<div class="container" style=" margin:15rem;text-align:center;width: 100%; display:flex;flex-direction: row" >
+  <div class="card" style="width:90%; border: 1px solid gainsboro;">
+    <div class="card-header">Login</div>
+    <div class="card-body"><form method="post">
+                    {% csrf_token %}
+        <div class="row">
+              <div class="col-md-6">
+                {{ form.username|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.password|as_crispy_field }}
+              </div>
+        </div>
+        <div> <button class="btn btn-primary ml-2" type="submit">Log In</button></div>
+        <p>Forgot your password?? Click the link</p><a href="{% url 'password_reset' %}">Forgot password</a>
+
+    </form></div>
+  </div>
+</div>
+
+{% endblock content %}
+
+

@@ -1,0 +1,152 @@
+
+{% load static %}
+{% load mathfilters %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+    <meta charset="UTF-8">
+    <title>Eagle Financial Services</title>
+</head>
+ <style>
+        body {
+            background-color: aliceblue;
+
+        }
+        .table{
+            margin-left:auto; margin-right:auto;
+        }
+         td, th {
+             border: 1px solid black;
+         }
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+    </style>
+<body>
+  <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="border-radius: 2px">Welcome!</div>
+                    <div class="panel-body">
+                        Eagle Financial Services, your Midwest Financial Services Partner.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <div class="row" style="font-size: 30px">Customer Portfolio</div>
+
+  <div class="container">
+    <h2 class="navbar-brand" style="padding-left: 15Px">Overall Portfolio</h2>
+      <table class="table table-hover table-responsive-lg text-center">
+        <thead class="thead-dark bg-primary">
+        <tr>
+            <th>Portfolio Initial Investments</th>
+            <th>Portfolio Current Investments</th>
+            <th>Grand Total Results</th>
+
+        </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>{{ Total_initial_investmensts }}</td>
+                    <td>{{ Total_current_investments }}</td>
+                    <td>{{ Total }}</td>
+
+                </tr>
+
+        </tbody>
+    </table>
+      <div>
+          <h2 class="navbar-brand" style="padding-left: 15Px"><u>Stocks Information</u></h2>
+          <div>
+              <table class="table table-hover table-responsive-lg text-center">
+        <thead class="thead-dark bg-primary">
+        <tr>
+            <th>Total of Initial Stocks</th>
+            <th>Total of Current Stocks</th>
+            <th>Results</th>
+        </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>{{ sum_of_initial_stock_value }}</td>
+                    <td>{{ sum_current_stocks_value }}</td>
+                    <td>{{ stock_result }}</td>
+
+                </tr>
+
+        </tbody>
+    </table>
+          </div>
+      </div>
+
+      <div class="row">
+            <h2 class="navbar-brand" style="padding-left: 15Px"><u>Investment Information</u></h2>
+      </div>
+      <div class="row">
+            <table class="table table-hover table-responsive-lg text-center">
+                <thead class="thead-dark bg-primary">
+                <tr>
+                    <th>Customer number</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Acquired Value</th>
+                    <th>Acquired Date</th>
+                    <th>Recent Value</th>
+                    <th>Recent Date</th>
+                    <th>Results</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for investment in investments %}
+                        <tr>
+                            <td>{{ investment.customer }}</td>
+                            <td>{{ investment.category }}</td>
+                            <td>{{ investment.description }}</td>
+                            <td>{{ investment.acquired_value|intcomma }}</td>
+                            <td>{{ investment.acquired_date }}</td>
+                            <td>{{ investment.recent_value|intcomma }}</td>
+                            <td>{{ investment.recent_date }}</td>
+                            <td>{{ investment.recent_value|sub:investment.acquired_value }}</td>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      <div class="row">
+            <table class="table table-hover table-responsive-lg text-center">
+                <thead class="thead-dark bg-primary">
+                <tr>
+                    <th>Total of Initial Investments</th>
+                    <th>Total of Current Investments</th>
+                    <th>Results</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                        <tr>
+                            <td>{{ sum_of_initial_investment_value }}</td>
+                            <td>{{ sum_current_investment_value }}</td>
+                            <td>{{ investment_result }}</td>
+
+                        </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+{% endblock %}
+

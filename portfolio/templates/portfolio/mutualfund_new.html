@@ -1,0 +1,21 @@
+{% extends 'portfolio/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+     <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1" style="margin-top: 2rem">
+                        <div class="panel panel-primary mt-3" >
+                            <div class="panel-heading"><h4>Add a New Mutual Fund</h4></div>
+                            <div class="panel-body">
+                                <form method="POST" class="mutualfund-form">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                     <button type="submit" class="save btn btn-primary my-auto">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+{% endblock %}
+

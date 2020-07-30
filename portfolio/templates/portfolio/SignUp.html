@@ -1,0 +1,52 @@
+{% extends 'portfolio/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+<style>
+    form, h4{
+        text-align: center;
+        margin-top: auto;
+        padding-top: 2rem;
+        }
+     button{
+            margin-left: 12rem;
+            margin-top: 1rem;
+        }
+     .form-group {
+            margin-bottom: 1rem !important;
+        }
+
+        .card-header {
+            background-color: #337ab7 !important;
+        }
+
+        form > div{
+            display:flex;
+            margin-bottom: 1rem !important;
+        }
+        label{
+            width:12rem;
+        }
+</style>
+
+       <div class="container" style="margin-top: auto; padding-top: 3rem; display: inline">
+            <div class="card" style="border: 1px solid black;">
+              <div class="card-header">
+                <h4>Sign Up</h4>
+              </div>
+            <div class="card-body">
+              <form method="post">
+                  {% csrf_token %}
+
+                  {{ form|crispy }}
+
+                  <button class="btn btn-success" type="submit">Sign Up</button>
+              </form>
+            </div>
+        </div>
+       </div>
+
+{% endblock content %}

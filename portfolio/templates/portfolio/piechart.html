@@ -1,0 +1,85 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load humanize %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <meta charset="UTF-8">
+    <title>Eagle Financial Services</title>
+</head>
+<body>
+ <header class="jumbotron my-4 table-responsive" style="background: lavender">
+      <p class="lead text-nowrap"><b>Eagle Financial Services, your Midwest Financial Services Partner</b></p>
+
+            <p>It is  {{customer.name}} Report</p>
+
+         </header>
+ <div style="display: flex">
+     <div style="height: 300px!important;width: 597px!important; display: inline-block;">
+        <canvas id="myChart" ></canvas>
+         <script type="text/javascript">
+             var ctx = document.getElementById('myChart').getContext('2d');
+             var categoryValues = {}
+             {% for investment in investments %}
+                categoryValues['{{investment.category}}'] = '{{investment.recent_value}}'
+             {% endfor %}
+             {% for stock in stocks %}
+                categoryValues['Stock'] = '{{stock.current_stock_value}}'
+             {% endfor %}
+
+             var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'pie',
+            // The data for our dataset
+            data : {
+                datasets: [{
+                    data: Object.values(categoryValues),
+                    backgroundColor: ['#5e1563','#57b827','#8a0f4c','#153994','#de1021','#dedb10']
+                }],
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: Object.keys(categoryValues)
+            },
+            // Configuration options go here
+            options: {}
+        });
+        </script>
+     </div>
+    <div style="height: 300px!important;width: 350px!important;display: inline-block;">
+            <canvas id="barChart" style="height: 100px !important;width: 100px !important;"></canvas>
+            <script type="text/javascript">
+     var ctx = document.getElementById('barChart').getContext('2d');
+     var categoryValues = {}
+     {% for investment in investments %}
+        categoryValues['{{investment.category}}'] = '{{investment.recent_value}}'
+     {% endfor %}
+     {% for stock in stocks %}
+        categoryValues['Stock'] = '{{stock.current_stock_value}}'
+     {% endfor %}
+     {% for mutualfund in mutualfunds %}
+                categoryValues['{{mutualfund.category}}'] = '{{mutualfund.recent_value}}'
+             {% endfor%}
+     var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    // The data for our dataset
+    data : {
+        datasets: [{
+            data: Object.values(categoryValues),
+            backgroundColor: ['#5e1563','#57b827','#8a0f4c','#153994','#de1021','#dedb10']
+        }],
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: Object.keys(categoryValues)
+    },
+    // Configuration options go here
+    options: {}
+});
+</script>
+     </div>
+ </div>
+
+{% endblock %}
+

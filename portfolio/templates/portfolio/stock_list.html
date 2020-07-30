@@ -1,0 +1,77 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Eagle Financial</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    </head>
+    <body>
+        <style>
+        body {
+            background-color: lightgrey;
+        }
+        .table{
+            margin-left:auto; margin-right:auto;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Welcome!</div>
+                    <div class="panel-body">
+                        Eagle Financial Services, your Midwest Financial Services Partner.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+        <h2 style="padding-left: 15Px">Stocks Information</h2>
+        </div>
+        <div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark bg-primary">
+            <tr>
+                <th>Customer number</th>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Purchase Price</th>
+                <th>Purchase Date</th>
+                <th colspan="3">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.customer }}</td>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.shares }}</td>
+                    <td>{{ stock.purchase_price }}</td>
+                    <td>{{ stock.purchase_date }}</td>
+                   <td><a href="{% url 'portfolio:stock_edit' pk=stock.pk %}"
+                           class="btn btn-warning">Edit</a></td>
+                    <td><a href="{% url 'portfolio:stock_delete' pk=stock.pk %}"
+                           onclick="return confirm('Are you sure you want to delete this stock?')"
+                           class="btn btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row col-lg-2    ">
+            <a href="{% url 'portfolio:stock_new' %}" class="row"><span
+                    class="btn btn-primary">Add Stock</span></a>
+        </div>
+    </div>
+    </div>
+    </body>
+    </html>
+{% endblock %}
